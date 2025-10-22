@@ -1,524 +1,250 @@
-* {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-        }
-        
-        /* Cabeçalho */
-        .cabecalho {
-            background: white;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            padding: 15px 0;
-            z-index: 1000;
-        }
-        
-        .container-navegacao {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .icone-logo {
-            width: 40px;
-            height: 40px;
-            background: #4f46e5;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-        }
-        
-        .texto-logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #1f2937;
-        }
-        
-        .navegacao ul {
-            display: flex;
-            list-style: none;
-            gap: 20px;
-        }
-        
-        .navegacao a {
-            text-decoration: none;
-            color: #4b5563;
-            font-weight: 500;
-        }
-        
-        .navegacao a:hover {
-            color: #4f46e5;
-        }
-        
-        /* Seção Principal */
-        .hero {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 120px 20px 60px;
-            text-align: center;
-            margin-top: 70px;
-        }
-        
-        .conteudo-hero {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-        }
-        
-        .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-        }
-        
-        .botoes {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        
-        .botao {
-            padding: 12px 25px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: all 0.3s;
-            border: none;
-            cursor: pointer;
-            display: inline-block;
-        }
-        
-        .botao-primario {
-            background: #fbbf24;
-            color: #1f2937;
-        }
-        
-        .botao-primario:hover {
-            background: #f59e0b;
-        }
-        
-        .botao-secundario {
-            background: transparent;
-            color: white;
-            border: 2px solid white;
-        }
-        
-        .botao-secundario:hover {
-            background: white;
-            color: #1f2937;
-        }
-        
-        /* Seções gerais */
-        .secao {
-            padding: 60px 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .titulo-secao {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-        
-        .titulo-secao h2 {
-            font-size: 2rem;
-            margin-bottom: 15px;
-            color: #1f2937;
-        }
-        
-        .titulo-secao p {
-            color: #6b7280;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
-        /* Seção Sobre */
-        .sobre {
-            background: #f9fafb;
-        }
-        
-        .grade-sobre {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            align-items: center;
-        }
-        
-        .texto-sobre h3 {
-            font-size: 1.8rem;
-            margin-bottom: 15px;
-            color: #1f2937;
-        }
-        
-        .texto-sobre p {
-            color: #6b7280;
-            margin-bottom: 20px;
-        }
-        
-        .caracteristicas {
-            list-style: none;
-        }
-        
-        .caracteristicas li {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 10px;
-            color: #4b5563;
-        }
-        
-        .icone-check {
-            width: 20px;
-            height: 20px;
-            background: #10b981;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 12px;
-        }
-        
-        .cartao-sobre {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            text-align: center;
-        }
-        
-        .icone-sobre {
-            width: 70px;
-            height: 70px;
-            background: #4f46e5;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            font-size: 1.8rem;
-        }
-        
-        /* Seção Serviços */
-        .grade-servicos {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-        }
-        
-        .cartao-servico {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
-        }
-        
-        .cartao-servico:hover {
-            transform: translateY(-5px);
-        }
-        
-        .icone-servico {
-            width: 60px;
-            height: 60px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
-            font-size: 1.5rem;
-        }
-        
-        .cartao-servico:nth-child(1) .icone-servico {
-            background: #dbeafe;
-            color: #2563eb;
-        }
-        
-        .cartao-servico:nth-child(2) .icone-servico {
-            background: #dcfce7;
-            color: #16a34a;
-        }
-        
-        .cartao-servico:nth-child(3) .icone-servico {
-            background: #f3e8ff;
-            color: #9333ea;
-        }
-        
-        .cartao-servico h3 {
-            font-size: 1.4rem;
-            margin-bottom: 15px;
-            color: #1f2937;
-        }
-        
-        .cartao-servico p {
-            color: #6b7280;
-            margin-bottom: 15px;
-        }
-        
-        .link-servico {
-            color: #4f46e5;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        
-        /* Seção Equipe */
-        .equipe {
-            background: #f9fafb;
-        }
-        
-        .grade-equipe {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
-        }
-        
-        .cartao-equipe {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            text-align: center;
-        }
-        
-        .avatar-equipe {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 15px;
-            color: white;
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
-        
-        .cartao-equipe:nth-child(1) .avatar-equipe {
-            background: #60a5fa;
-        }
-        
-        .cartao-equipe:nth-child(2) .avatar-equipe {
-            background: #34d399;
-        }
-        
-        .cartao-equipe:nth-child(3) .avatar-equipe {
-            background: #a78bfa;
-        }
-        
-        .cartao-equipe h3 {
-            font-size: 1.3rem;
-            margin-bottom: 8px;
-            color: #1f2937;
-        }
-        
-        .cargo-equipe {
-            color: #4f46e5;
-            font-weight: bold;
-            margin-bottom: 15px;
-        }
-        
-        .cartao-equipe p {
-            color: #6b7280;
-            font-size: 0.9rem;
-        }
-        
-        /* Seção Contato */
-        .grade-contato {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-        }
-        
-        .info-contato h3 {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            color: #1f2937;
-        }
-        
-        .item-contato {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-        
-        .icone-contato {
-            width: 45px;
-            height: 45px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-        }
-        
-        .item-contato:nth-child(2) .icone-contato {
-            background: #dbeafe;
-            color: #2563eb;
-        }
-        
-        .item-contato:nth-child(3) .icone-contato {
-            background: #dcfce7;
-            color: #16a34a;
-        }
-        
-        .item-contato:nth-child(4) .icone-contato {
-            background: #f3e8ff;
-            color: #9333ea;
-        }
-        
-        .detalhes-contato h4 {
-            margin: 0 0 5px 0;
-            color: #1f2937;
-            font-weight: bold;
-        }
-        
-        .detalhes-contato p {
-            margin: 0;
-            color: #6b7280;
-        }
-        
-        .formulario-contato {
-            background: #f9fafb;
-            padding: 30px;
-            border-radius: 10px;
-        }
-        
-        .grupo-formulario {
-            margin-bottom: 20px;
-        }
-        
-        .grupo-formulario label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-            color: #374151;
-        }
-        
-        .grupo-formulario input,
-        .grupo-formulario textarea {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #d1d5db;
-            border-radius: 8px;
-            font-size: 1rem;
-        }
-        
-        .grupo-formulario textarea {
-            resize: vertical;
-            min-height: 120px;
-        }
-        
-        /* Rodapé */
-        .rodape {
-            background: #1f2937;
-            color: white;
-            padding: 50px 20px 20px;
-        }
-        
-        .conteudo-rodape {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .grade-rodape {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-bottom: 30px;
-        }
-        
-        .secao-rodape h4 {
-            margin-bottom: 15px;
-            color: white;
-        }
-        
-        .secao-rodape ul {
-            list-style: none;
-        }
-        
-        .secao-rodape ul li {
-            margin-bottom: 8px;
-        }
-        
-        .secao-rodape ul li a {
-            color: #9ca3af;
-            text-decoration: none;
-        }
-        
-        .secao-rodape ul li a:hover {
-            color: white;
-        }
-        
-        .redes-sociais {
-            display: flex;
-            gap: 15px;
-            margin-top: 15px;
-        }
-        
-        .icone-rede-social {
-            width: 40px;
-            height: 40px;
-            background: #374151;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-        }
-        
-        .base-rodape {
-            border-top: 1px solid #374151;
-            padding-top: 20px;
-            text-align: center;
-            color: #9ca3af;
-        }
-        
-        /* Responsivo */
-        @media (max-width: 768px) {
-            .navegacao ul {
-                display: none;
-            }
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SchoolTECH - Tecnologia Educacional</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Cabeçalho -->
+    <header class="cabecalho">
+        <div class="container-navegacao">
+            <div class="logo">
+                <div class="icone-logo">ST</div>
+                <span class="texto-logo">SchoolTECH</span>
+            </div>
+            <nav class="navegacao">
+                <ul>
+                    <li><a href="#inicio">Início</a></li>
+                    <li><a href="#sobre">Sobre</a></li>
+                    <li><a href="#servicos">Serviços</a></li>
+                    <li><a href="#equipe">Equipe</a></li>
+                    <li><a href="#contato">Contato</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Seção Principal -->
+    <section id="inicio" class="hero">
+        <div class="conteudo-hero">
+            <h1>Transformando a Educação com <span style="color: #fbbf24;">Tecnologia</span></h1>
+            <p>Soluções inovadoras em tecnologia educacional para escolas, universidades e instituições de ensino</p>
+            <div class="botoes">
+                <a href="#servicos" class="botao botao-primario">Conheça Nossos Serviços</a>
+                <a href="#contato" class="botao botao-secundario">Fale Conosco</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção Sobre -->
+    <section id="sobre" class="secao sobre">
+        <div class="titulo-secao">
+            <h2>Sobre a SchoolTECH</h2>
+            <p>Somos uma empresa especializada em desenvolver soluções tecnológicas que revolucionam o ambiente educacional</p>
+        </div>
+        
+        <div class="grade-sobre">
+            <div class="texto-sobre">
+                <h3>Nossa Missão</h3>
+                <p>Democratizar o acesso à tecnologia educacional de qualidade, proporcionando ferramentas inovadoras que potencializam o aprendizado e facilitam a gestão educacional.</p>
+                <ul class="caracteristicas">
+                    <li>
+                        <span class="icone-check">✓</span>
+                        Mais de 500 instituições atendidas
+                    </li>
+                    <li>
+                        <span class="icone-check">✓</span>
+                        10 anos de experiência no mercado
+                    </li>
+                    <li>
+                        <span class="icone-check">✓</span>
+                        Suporte técnico 24/7
+                    </li>
+                </ul>
+            </div>
             
-            .hero h1 {
-                font-size: 2rem;
-            }
+            <div class="cartao-sobre">
+                <div class="icone-sobre">📚</div>
+                <h4>Inovação Constante</h4>
+                <p>Investimos continuamente em pesquisa e desenvolvimento para oferecer as melhores soluções tecnológicas para o setor educacional.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção Serviços -->
+    <section id="servicos" class="secao">
+        <div class="titulo-secao">
+            <h2>Nossos Serviços</h2>
+            <p>Oferecemos soluções completas para modernizar e otimizar sua instituição de ensino</p>
+        </div>
+        
+        <div class="grade-servicos">
+            <div class="cartao-servico">
+                <div class="icone-servico">💻</div>
+                <h3>Plataformas de Ensino</h3>
+                <p>Desenvolvimento de plataformas EAD personalizadas com recursos avançados de interação e acompanhamento pedagógico.</p>
+                <a href="#" class="link-servico">Saiba mais →</a>
+            </div>
             
-            .grade-sobre,
-            .grade-contato {
-                grid-template-columns: 1fr;
-            }
+            <div class="cartao-servico">
+                <div class="icone-servico">📊</div>
+                <h3>Gestão Escolar</h3>
+                <p>Sistemas integrados para gestão acadêmica, financeira e administrativa, otimizando todos os processos da instituição.</p>
+                <a href="#" class="link-servico">Saiba mais →</a>
+            </div>
             
-            .botoes {
-                flex-direction: column;
-                align-items: center;
-            }
+            <div class="cartao-servico">
+                <div class="icone-servico">📱</div>
+                <h3>Apps Educacionais</h3>
+                <p>Desenvolvimento de aplicativos móveis educacionais interativos para engajar alunos e facilitar o aprendizado.</p>
+                <a href="#" class="link-servico">Saiba mais →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção Equipe -->
+    <section id="equipe" class="secao equipe">
+        <div class="titulo-secao">
+            <h2>Nossa Equipe</h2>
+            <p>Profissionais especializados e apaixonados por educação e tecnologia</p>
+        </div>
+        
+        <div class="grade-equipe">
+            <div class="cartao-equipe">
+                <div class="avatar-equipe">AM</div>
+                <h3>Ana Maria Silva</h3>
+                <p class="cargo-equipe">CEO & Fundadora</p>
+                <p>15 anos de experiência em tecnologia educacional e gestão de projetos inovadores.</p>
+            </div>
             
-            .botao {
-                width: 200px;
-            }
-        }
+            <div class="cartao-equipe">
+                <div class="avatar-equipe">CS</div>
+                <h3>Carlos Santos</h3>
+                <p class="cargo-equipe">CTO</p>
+                <p>Especialista em desenvolvimento de software e arquitetura de sistemas educacionais.</p>
+            </div>
+            
+            <div class="cartao-equipe">
+                <div class="avatar-equipe">MO</div>
+                <h3>Mariana Oliveira</h3>
+                <p class="cargo-equipe">Diretora Pedagógica</p>
+                <p>Doutora em Educação com foco em tecnologias digitais aplicadas ao ensino.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção Contato -->
+    <section id="contato" class="secao">
+        <div class="titulo-secao">
+            <h2>Entre em Contato</h2>
+            <p>Pronto para transformar sua instituição? Vamos conversar sobre suas necessidades</p>
+        </div>
+        
+        <div class="grade-contato">
+            <div class="info-contato">
+                <h3>Fale Conosco</h3>
+                
+                <div class="item-contato">
+                    <div class="icone-contato">📞</div>
+                    <div class="detalhes-contato">
+                        <h4>Telefone</h4>
+                        <p>(11) 9999-8888</p>
+                    </div>
+                </div>
+                
+                <div class="item-contato">
+                    <div class="icone-contato">✉️</div>
+                    <div class="detalhes-contato">
+                        <h4>Email</h4>
+                        <p>contato@schooltech.com.br</p>
+                    </div>
+                </div>
+                
+                <div class="item-contato">
+                    <div class="icone-contato">📍</div>
+                    <div class="detalhes-contato">
+                        <h4>Endereço</h4>
+                        <p>Av. Paulista, 1000 - São Paulo, SP</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="formulario-contato">
+                <form>
+                    <div class="grupo-formulario">
+                        <label for="nome">Nome Completo</label>
+                        <input type="text" id="nome" name="nome" required>
+                    </div>
+                    
+                    <div class="grupo-formulario">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="grupo-formulario">
+                        <label for="instituicao">Instituição</label>
+                        <input type="text" id="instituicao" name="instituicao">
+                    </div>
+                    
+                    <div class="grupo-formulario">
+                        <label for="mensagem">Mensagem</label>
+                        <textarea id="mensagem" name="mensagem" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="botao botao-primario" style="width: 100%;">Enviar Mensagem</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rodapé -->
+    <footer class="rodape">
+        <div class="conteudo-rodape">
+            <div class="grade-rodape">
+                <div class="secao-rodape">
+                    <div class="logo">
+                        <div class="icone-logo">ST</div>
+                        <span class="texto-logo">SchoolTECH</span>
+                    </div>
+                    <p style="color: #9ca3af; margin-top: 15px;">Transformando a educação através da tecnologia inovadora.</p>
+                </div>
+                
+                <div class="secao-rodape">
+                    <h4>Serviços</h4>
+                    <ul>
+                        <li><a href="#">Plataformas EAD</a></li>
+                        <li><a href="#">Gestão Escolar</a></li>
+                        <li><a href="#">Apps Educacionais</a></li>
+                        <li><a href="#">Consultoria</a></li>
+                    </ul>
+                </div>
+                
+                <div class="secao-rodape">
+                    <h4>Empresa</h4>
+                    <ul>
+                        <li><a href="#sobre">Sobre Nós</a></li>
+                        <li><a href="#equipe">Equipe</a></li>
+                        <li><a href="#">Carreiras</a></li>
+                        <li><a href="#contato">Contato</a></li>
+                    </ul>
+                </div>
+                
+                <div class="secao-rodape">
+                    <h4>Redes Sociais</h4>
+                    <div class="redes-sociais">
+                        <a href="#" class="icone-rede-social">📘</a>
+                        <a href="#" class="icone-rede-social">🐦</a>
+                        <a href="#" class="icone-rede-social">💼</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="base-rodape">
+                <p>&copy; 2024 SchoolTECH. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
