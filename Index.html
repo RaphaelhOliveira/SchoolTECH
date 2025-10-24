@@ -478,8 +478,289 @@
             });
 
 
-            // Fechar modal ao clicar fora
+          // Fechar modal ao clicar fora
             window.addEventListener('click', function(event) {
                 const modal = document.getElementById('auth-modal');
                 if (event.target === modal) {
-              
+                    fecharModalAuth();
+                }
+            });
+        }
+
+
+        // Funções de Autenticação
+        function abrirModalLogin(e) {
+            e.preventDefault();
+            isLoginMode = true;
+            document.getElementById('modal-titulo').textContent = 'Entrar na SchoolTECH';
+            document.getElementById('modal-submit-text').textContent = 'Entrar';
+            document.getElementById('confirm-password-group').style.display = 'none';
+            document.getElementById('auth-switch').innerHTML = 'Não tem uma conta? <a href="#" id="switch-to-cadastro">Cadastre-se</a>';
+            document.getElementById('auth-modal').style.display = 'block';
+           
+            // Reconfigurar event listener
+            document.getElementById('switch-to-cadastro').addEventListener('click', alternarModoAuth);
+        }
+
+
+        function abrirModalCadastro(e) {
+            e.preventDefault();
+            isLoginMode = false;
+            document.getElementById('modal-titulo').textContent = 'Cadastrar na SchoolTECH';
+            document.getElementById('modal-submit-text').textContent = 'Cadastrar';
+            document.getElementById('confirm-password-group').style.display = 'block';
+            document.getElementById('auth-switch').innerHTML = 'Já tem uma conta? <a href="#" id="switch-to-login">Entrar</a>';
+            document.getElementById('auth-modal').style.display = 'block';
+           
+            // Reconfigurar event listener
+            document.getElementById('switch-to-login').addEventListener('click', alternarModoAuth);
+        }
+
+
+        function alternarModoAuth(e) {
+            e.preventDefault();
+            if (isLoginMode) {
+                abrirModalCadastro(e);
+            } else {
+                abrirModalLogin(e);
+            }
+        }
+
+
+        function fecharModalAuth() {
+            document.getElementById('auth-modal').style.display = 'none';
+            document.getElementById('auth-form').reset();
+        }
+
+
+        async function processarAuth(e) {
+            e.preventDefault();
+           
+            const email = document.getElementById('auth-email').value;
+            const password = document.getElementById('auth-password').value;
+            const confirmPassword = document.getElementById('auth-confirm-password').value;
+           
+            // Validação
+            if (!isLoginMode && password !== confirmPassword) {
+                mostrarMensagem('As senhas não coincidem!', 'erro');
+                return;
+            }
+           
+            if (password.length < 6) {
+                mostrarMensagem('A senha deve ter pelo menos 6 caracteres!', 'erro');
+                return;
+            }
+           
+            try {
+                if (isLoginMode) {
+                    // Login
+                    await auth.signInWithEmailAndPassword(email, password);
+                    mostrarMensagem('Login realizado com sucesso!', 'sucesso');
+                } else {
+                    // Cadastro
+                    const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+                    const user = userCredential.user;
+                   
+                    // Salvar informações adicionais do usuário no Realtime Database
+                    await database.ref('users/' + user.uid).set({
+                        email: email,
+                        nome: email.split('@')[0],
+                        dataCriacao: new Date().toISOString()
+                    });
+                   
+                    mostrarMensagem('Conta criada com sucesso!', 'sucesso');
+                }
+               
+                fecharModalAuth();
+            } catch (error) {
+                console.error('Erro na autenticação:', error);
+                mostrarMensagem(getErrorMessage(error.code), 'erro');
+            }
+        }
+
+
+        function fazerLogout() {
+            auth.signOut();
+            mostrarMensagem('Logout realizado com sucesso!', 'sucesso');
+        }
+
+
+        function verificarAuthState() {
+            auth.onAuthStateChanged((user) => {
+                if (user) {
+                    // Usuário logado
+                    document.getElementById('auth-buttons').style.display = 'none';
+                    document.getElementById('user-menu').style.display = 'block';
+                    document.getElementById('user-name').textContent = user.email;
+                   
+                    // Carregar informações do usuário
+                    carregarUsuario(user.uid);
+                } else {
+                    // Usuário não logado
+                    document.getElementById('auth-buttons').style.display = 'block';
+                    document.getElementById('user-menu').style.display = 'none';
+                }
+            });
+        }
+
+
+        async function carregarUsuario(uid) {
+            try {
+                const userRef = database.ref('users/' + uid);
+                userRef.once('value', (snapshot) => {
+                    const userData = snapshot.val();
+                    if (userData) {
+                        document.getElementById('user-name').textContent = userData.nome || userData.email;
+                    }
+                });
+            } catch (error) {
+                console.error('Erro ao carregar usuário:', error);
+            }
+        }
+
+
+        // Funções de Envio de Conteúdo
+        function selecionarTipo(tipo) {
+            tipoConteudoSelecionado = tipo;
+           
+            // Remover seleção anterior
+            document.querySelectorAll('.opcao-envio').forEach(opcao => {
+                opcao.classList.remove('selecionada');
+            });
+           
+            // Adicionar seleção atual
+            document.querySelector(`[data-tipo="${tipo}"]`).classList.add('selecionada');
+           
+            // Mostrar campos apropriados
+            if (tipo === 'texto') {
+                document.getElementById('campo-texto').style.display = 'block';
+                document.getElementById('campo-imagem').style.display = 'none';
+                document.getElementById('conteudo-texto').required = true;
+                document.getElementById('arquivo-imagem').required = false;
+            } else if (tipo === 'imagem') {
+                document.getElementById('campo-texto').style.display = 'none';
+                document.getElementById('campo-imagem').style.display = 'block';
+                document.getElementById('conteudo-texto').required = false;
+                document.getElementById('arquivo-imagem').required = true;
+            }
+        }
+
+
+        async function enviarConteudo(e) {
+            e.preventDefault();
+           
+            const user = auth.currentUser;
+            if (!user) {
+                mostrarMensagem('Você precisa estar logado para enviar conteúdo!', 'erro');
+                abrirModalLogin(e);
+                return;
+            }
+           
+            if (!tipoConteudoSelecionado) {
+                mostrarMensagem('Selecione o tipo de conteúdo que deseja enviar!', 'erro');
+                return;
+            }
+           
+            const titulo = document.getElementById('titulo').value;
+            const materia = document.getElementById('materia').value;
+            const descricao = document.getElementById('descricao').value;
+           
+            try {
+                let urlArquivo = '';
+                let conteudoTexto = '';
+               
+                if (tipoConteudoSelecionado === 'texto') {
+                    conteudoTexto = document.getElementById('conteudo-texto').value;
+                    if (!conteudoTexto.trim()) {
+                        mostrarMensagem('Digite o conteúdo do texto!', 'erro');
+                        return;
+                    }
+                } else if (tipoConteudoSelecionado === 'imagem') {
+                    const arquivo = document.getElementById('arquivo-imagem').files[0];
+                    if (!arquivo) {
+                        mostrarMensagem('Selecione uma imagem!', 'erro');
+                        return;
+                    }
+                   
+                    // Upload da imagem para o Storage
+                    const storageRef = storage.ref();
+                    const arquivoRef = storageRef.child(`conteudos/${user.uid}/${Date.now()}_${arquivo.name}`);
+                    const snapshot = await arquivoRef.put(arquivo);
+                    urlArquivo = await snapshot.ref.getDownloadURL();
+                }
+               
+                // Salvar informações no Realtime Database
+                const conteudoId = database.ref().child('conteudos').push().key;
+                await database.ref('conteudos/' + conteudoId).set({
+                    titulo: titulo,
+                    materia: materia,
+                    descricao: descricao,
+                    tipo: tipoConteudoSelecionado,
+                    conteudoTexto: conteudoTexto,
+                    urlArquivo: urlArquivo,
+                    autorId: user.uid,
+                    autorEmail: user.email,
+                    dataCriacao: new Date().toISOString(),
+                    curtidas: 0,
+                    visualizacoes: 0
+                });
+               
+                mostrarMensagem('Conteúdo enviado com sucesso!', 'sucesso');
+                document.getElementById('formulario-conteudo').reset();
+                document.getElementById('preview-imagem').style.display = 'none';
+                document.querySelectorAll('.opcao-envio').forEach(opcao => {
+                    opcao.classList.remove('selecionada');
+                });
+                tipoConteudoSelecionado = '';
+               
+            } catch (error) {
+                console.error('Erro no envio:', error);
+                mostrarMensagem('Erro ao enviar conteúdo. Tente novamente.', 'erro');
+            }
+        }
+
+
+        // Funções Auxiliares
+        function mostrarMensagem(mensagem, tipo) {
+            // Remover mensagens anteriores
+            const mensagensAntigas = document.querySelectorAll('.mensagem-status');
+            mensagensAntigas.forEach(msg => msg.remove());
+           
+            // Criar nova mensagem
+            const mensagemDiv = document.createElement('div');
+            mensagemDiv.className = `mensagem-status mensagem-${tipo}`;
+            mensagemDiv.textContent = mensagem;
+           
+            // Inserir após o header
+            const header = document.querySelector('.cabecalho');
+            header.parentNode.insertBefore(mensagemDiv, header.nextSibling);
+           
+            // Remover após 5 segundos
+            setTimeout(() => {
+                mensagemDiv.remove();
+            }, 5000);
+        }
+
+
+        function getErrorMessage(errorCode) {
+            const errors = {
+                'auth/email-already-in-use': 'Este email já está em uso.',
+                'auth/invalid-email': 'Email inválido.',
+                'auth/weak-password': 'Senha muito fraca (mínimo 6 caracteres).',
+                'auth/user-not-found': 'Usuário não encontrado.',
+                'auth/wrong-password': 'Senha incorreta.',
+                'auth/network-request-failed': 'Erro de conexão. Verifique sua internet.',
+                'auth/too-many-requests': 'Muitas tentativas. Tente novamente mais tarde.'
+            };
+           
+            return errors[errorCode] || 'Ocorreu um erro. Tente novamente.';
+        }
+
+
+        // Tornar funções globais para uso no HTML
+        window.selecionarTipo = selecionarTipo;
+    </script>
+</body>
+</html>
+
+  
