@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SchoolTECH - Compartilhando Conhecimento</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Cabeçalho -->
+    <header class="cabecalho">
+        <div class="container-navegacao">
+            <div class="logo">
+                <div class="icone-logo">ST</div>
+                <span class="texto-logo">SchoolTECH</span>
+            </div>
+            <nav class="navegacao">
+                <ul>
+                    <li><a href="#inicio">Início</a></li>
+                    <li><a href="#sobre">Sobre</a></li>
+                    <li><a href="#envio">Enviar Conteúdo</a></li>
+                    <li><a href="#materiais">Materiais</a></li>
+                    <li><a href="#equipe">Equipe</a></li>
+                    <li><a href="#contato">Contato</a></li>
+                    <li id="auth-buttons">
+                        <a href="#" class="botao-login" id="login-btn">Entrar</a>
+                        <a href="#" class="botao-cadastro" id="cadastro-btn">Cadastrar</a>
+                    </li>
+                    <li id="user-menu" style="display: none;">
+                        <span id="user-name" style="color: #4f46e5; margin-right: 15px;"></span>
+                        <a href="#" class="botao-login" id="logout-btn">Sair</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+
+    <!-- Modal de Login/Cadastro -->
+    <div id="auth-modal" class="modal">
+        <div class="modal-conteudo">
+            <span class="fechar-modal">&times;</span>
+            <h2 id="modal-titulo">Entrar na SchoolTECH</h2>
+            <form id="auth-form">
+                <div class="grupo-formulario">
+                    <label for="auth-email">Email</label>
+                    <input type="email" id="auth-email" required>
+                </div>
+                <div class="grupo-formulario">
+                    <label for="auth-password">Senha</label>
+                    <input type="password" id="auth-password" required>
+                </div>
+                <div class="grupo-formulario" id="confirm-password-group" style="display: none;">
+                    <label for="auth-confirm-password">Confirmar Senha</label>
+                    <input type="password" id="auth-confirm-password">
+                </div>
+                <button type="submit" class="botao botao-primario" style="width: 100%; margin-bottom: 15px;">
+                    <span id="modal-submit-text">Entrar</span>
+                </button>
+                <p id="auth-switch">
+                    Não tem uma conta? <a href="#" id="switch-to-cadastro">Cadastre-se</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- Seção Principal -->
+    <section id="inicio" class="hero">
+        <div class="conteudo-hero">
+            <h1>Compartilhe Conhecimento, <span style="color: #fbbf24;">Evolua Juntos</span></h1>
+            <p>Uma plataforma onde estudantes compartilham resumos, anotações e materiais de estudo para ajudar uns aos outros</p>
+            <div class="botoes">
+                <a href="#cadastro" class="botao botao-primario" id="hero-cadastro-btn">Começar Agora</a>
+                <a href="#envio" class="botao botao-secundario">Enviar Conteúdo</a>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Seção Sobre -->
+    <section id="sobre" class="secao sobre">
+        <div class="titulo-secao">
+            <h2>Sobre a SchoolTECH</h2>
+            <p>Conectando estudantes através do compartilhamento de conhecimento</p>
+        </div>
+       
+        <div class="grade-sobre">
+            <div class="texto-sobre">
+                <h3>Nossa Missão</h3>
+                <p>Democratizar o acesso a materiais de estudo de qualidade, criando uma comunidade colaborativa onde estudantes podem aprender e ensinar uns aos outros.</p>
+                <ul class="caracteristicas">
+                    <li>
+                        <span class="icone-check">✓</span>
+                        Compartilhamento de resumos e anotações
+                    </li>
+                    <li>
+                        <span class="icone-check">✓</span>
+                        Fotos de cadernos e mapas mentais
+                    </li>
+                    <li>
+                        <span class="icone-check">✓</span>
+                        Organização por matérias e disciplinas
+                    </li>
+                    <li>
+                        <span class="icone-check">✓</span>
+                        Sistema de avaliação e comentários
+                    </li>
+                </ul>
+            </div>
+           
+            <div class="cartao-sobre">
+                <div class="icone-sobre">📚</div>
+                <h4>Aprendizado Colaborativo</h4>
+                <p>Juntos somos mais fortes! Compartilhe seu conhecimento e ajude outros estudantes enquanto também aprende com eles.</p>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Seção Envio de Conteúdo -->
+    <section id="envio" class="secao envio-conteudo">
+        <div class="titulo-secao">
+            <h2>Envie Seu Conteúdo</h2>
+            <p>Compartilhe seus resumos, anotações e materiais de estudo com a comunidade</p>
+        </div>
+       
+        <div class="formulario-envio">
+            <div class="opcoes-envio">
+                <div class="opcao-envio" data-tipo="texto" onclick="selecionarTipo('texto')">
+                    <div class="icone-opcao">📝</div>
+                    <h4>Texto</h4>
+                    <p>Envie resumos e anotações em texto</p>
+                </div>
+                <div class="opcao-envio" data-tipo="imagem" onclick="selecionarTipo('imagem')">
+                    <div class="icone-opcao">🖼️</div>
+                    <h4>Imagem</h4>
+                    <p>Envie fotos de cadernos e mapas mentais</p>
+                </div>
+            </div>
+
+
+            <form id="formulario-conteudo">
+                <div class="grupo-formulario">
+                    <label for="titulo">Título do Material</label>
+                    <input type="text" id="titulo" required placeholder="Ex: Resumo de Matemática - Álgebra">
+                </div>
+
+
+                <div class="grupo-formulario">
+                    <label for="materia">Matéria</label>
+                    <select id="materia" required>
+                        <option value="">Selecione uma matéria</option>
+                        <option value="matematica">Matemática</option>
+                        <option value="portugues">Português</option>
+                        <option value="historia">História</option>
+                        <option value="geografia">Geografia</option>
+                        <option value="ciencias">Ciências</option>
+                        <option value="ingles">Inglês</option>
+                        <option value="fisica">Física</option>
+                        <option value="quimica">Química</option>
+                        <option value="biologia">Biologia</option>
+                    </select>
+                </div>
+
+
+                <div class="grupo-formulario" id="campo-texto" style="display: none;">
+                    <label for="conteudo-texto">Conteúdo</label>
+                    <textarea id="conteudo-texto" rows="8" placeholder="Digite seu resumo ou anotações aqui..."></textarea>
+                </div>
+
+
+                <div class="grupo-formulario" id="campo-imagem" style="display: none;">
+                    <label for="arquivo-imagem">Selecionar Imagem</label>
+                    <input type="file" id="arquivo-imagem" accept="image/*">
+                    <img id="preview-imagem" class="preview-imagem" alt="Preview da imagem">
+                </div>
+
+
+                <div class="grupo-formulario">
+                    <label for="descricao">Descrição</label>
+                    <textarea id="descricao" rows="3" placeholder="Descreva brevemente seu material..."></textarea>
+                </div>
+
+
+                <button type="submit" class="botao botao-primario" style="width: 100%;" id="btn-enviar">
+                    Enviar Conteúdo
+                </button>
+            </form>
+        </div>
+    </section>
+
+
+    <!-- Seção Materiais -->
+    <section id="materiais" class="secao">
+        <div class="titulo-secao">
+            <h2>Materiais em Destaque</h2>
+            <p>Confira os melhores resumos e anotações compartilhados pela comunidade</p>
+        </div>
+       
+        <div class="grade-servicos">
+            <div class="cartao-servico">
+                <div class="icone-servico">📝</div>
+                <h3>Resumos Escritos</h3>
+                <p>Resumos detalhados de diversas matérias, organizados por tópicos e fáceis de entender.</p>
+                <a href="#" class="link-servico">Ver resumos →</a>
+            </div>
+           
+            <div class="cartao-servico">
+                <div class="icone-servico">🖼️</div>
+                <h3>Fotos de Anotações</h3>
+                <p>Cadernos, mapas mentais e esquemas visuais que facilitam o aprendizado.</p>
+                <a href="#" class="link-servico">Ver fotos →</a>
+            </div>
+           
+            <div class="cartao-servico">
+                <div class="icone-servico">📊</div>
+                <h3>Organização por Matéria</h3>
+                <p>Encontre materiais específicos para cada disciplina que você está estudando.</p>
+                <a href="#" class="link-servico">Explorar matérias →</a>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Seção Como Funciona -->
+    <section class="secao como-funciona">
+        <div class="titulo-secao">
+            <h2>Como Funciona</h2>
+            <p>Três passos simples para começar a compartilhar e aprender</p>
+        </div>
+       
+        <div class="passos">
+            <div class="passo">
+                <div class="numero-passo">1</div>
+                <h3>Crie sua Conta</h3>
+                <p>Registre-se gratuitamente em nossa plataforma</p>
+            </div>
+            <div class="passo">
+                <div class="numero-passo">2</div>
+                <h3>Compartilhe</h3>
+                <p>Faça upload de seus resumos, anotações e materiais</p>
+            </div>
+            <div class="passo">
+                <div class="numero-passo">3</div>
+                <h3>Conecte-se</h3>
+                <p>Interaja com outros estudantes e aprenda juntos</p>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Seção Equipe -->
+    <section id="equipe" class="secao equipe">
+        <div class="titulo-secao">
+            <h2>Nossa Equipe</h2>
+            <p>Os criadores desta plataforma colaborativa</p>
+        </div>
+       
+        <div class="grade-equipe">
+            <div class="cartao-equipe">
+                <div class="avatar-equipe">RK</div>
+                <h3>Roberto Kaiser</h3>
+                <p class="cargo-equipe">CEO & Fundador</p>
+                <p>Visionário por trás da ideia de conectar estudantes através do compartilhamento de conhecimento.</p>
+            </div>
+           
+            <div class="cartao-equipe">
+                <div class="avatar-equipe">DD</div>
+                <h3>Douglas Dias</h3>
+                <p class="cargo-equipe">CTO</p>
+                <p>Responsável pela tecnologia que torna possível o compartilhamento seguro e eficiente.</p>
+            </div>
+           
+            <div class="cartao-equipe">
+                <div class="avatar-equipe">RH</div>
+                <h3>Raphael Henrique</h3>
+                <p class="cargo-equipe">Diretor de Comunidade</p>
+                <p>Focado em criar uma experiência positiva e colaborativa para todos os usuários.</p>
+            </div>
+
+
+            <div class="cartao-equipe">
+                <div class="avatar-equipe">JB</div>
+                <h3>Jamile Barbosa</h3>
+                <p class="cargo-equipe">Diretora de Conteúdo</p>
+                <p>Especialista em curadoria e qualidade dos materiais educacionais compartilhados.</p>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Seção Contato -->
+    <section id="contato" class="secao">
+        <div class="titulo-secao">
+            <h2>Entre em Contato</h2>
+            <p>Tem dúvidas ou sugestões? Fale conosco!</p>
+        </div>
+       
+        <div class="grade-contato">
+            <div class="info-contato">
+                <h3>Fale Conosco</h3>
+               
+                <div class="item-contato">
+                    <div class="icone-contato">📞</div>
+                    <div class="detalhes-contato">
+                        <h4>Suporte</h4>
+                        <p>suporte@schooltech.com</p>
+                    </div>
+                </div>
+               
+                <div class="item-contato">
+                    <div class="icone-contato">✉️</div>
+                    <div class="detalhes-contato">
+                        <h4>Email Geral</h4>
+                        <p>contato@schooltech.com</p>
+                    </div>
+                </div>
+               
+                <div class="item-contato">
+                    <div class="icone-contato">💬</div>
+                    <div class="detalhes-contato">
+                        <h4>Comunidade</h4>
+                        <p>Junte-se ao nosso Discord</p>
+                    </div>
+                </div>
+            </div>
+           
+            <div class="formulario-contato">
+                <form id="contato-form">
+                    <div class="grupo-formulario">
+                        <label for="nome">Nome Completo</label>
+                        <input type="text" id="nome" name="nome" required>
+                    </div>
+                   
+                    <div class="grupo-formulario">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                   
+                    <div class="grupo-formulario">
+                        <label for="assunto">Assunto</label>
+                        <input type="text" id="assunto" name="assunto">
+                    </div>
+                   
+                    <div class="grupo-formulario">
+                        <label for="mensagem">Mensagem</label>
+                        <textarea id="mensagem" name="mensagem" required></textarea>
+                    </div>
+                   
+                    <button type="submit" class="botao botao-primario" style="width: 100%;">Enviar Mensagem</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Rodapé -->
+    <footer class="rodape">
+        <div class="conteudo-rodape">
+            <div class="grade-rodape">
+                <div class="secao-rodape">
+                    <div class="logo">
+                        <div class="icone-logo">ST</div>
+                        <span class="texto-logo">SchoolTECH</span>
+                    </div>
+                    <p style="color: #9ca3af; margin-top: 15px;">Compartilhando conhecimento, construindo o futuro da educação juntos.</p>
+                </div>
+               
+                <div class="secao-rodape">
+                    <h4>Recursos</h4>
+                    <ul>
+                        <li><a href="#materiais">Materiais de Estudo</a></li>
+                        <li><a href="#envio">Enviar Conteúdo</a></li>
+                        <li><a href="#">Comunidade</a></li>
+                        <li><a href="#">Blog Educacional</a></li>
+                    </ul>
+                </div>
+               
+                <div class="secao-rodape">
+                    <h4>Empresa</h4>
+                    <ul>
+                        <li><a href="#sobre">Sobre Nós</a></li>
+                        <li><a href="#equipe">Equipe</a></li>
+                        <li><a href="#">Política de Privacidade</a></li>
+                        <li><a href="#contato">Contato</a></li>
+                    </ul>
+                </div>
+               
+                <div class="secao-rodape">
+                    <h4>Redes Sociais</h4>
+                    <div class="redes-sociais">
+                        <a href="#" class="icone-rede-social">📘</a>
+                        <a href="#" class="icone-rede-social">🐦</a>
+                        <a href="#" class="icone-rede-social">📷</a>
+                    </div>
+                </div>
+            </div>
+           
+            <div class="base-rodape">
+                <p>&copy; 2024 SchoolTECH. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
+
+
+    <script>
+        // Configuração do Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyBb4Rlzw-z9GSUFCS6TQ35SIyKETEgqg7g",
+            authDomain: "cadastro-tb-61070.firebaseapp.com",
+            databaseURL: "https://cadastro-tb-61070-default-rtdb.firebaseio.com",
+            projectId: "cadastro-tb-61070",
+            storageBucket: "cadastro-tb-61070.firebasestorage.app",
+            messagingSenderId: "80187170645",
+            appId: "1:80187170645:web:552d5cb4ab1972766019dc"
+        };
+
+
+        // Inicializar Firebase
+        firebase.initializeApp(firebaseConfig);
+
+
+        // Referências globais
+        const auth = firebase.auth();
+        const database = firebase.database();
+        const storage = firebase.storage();
+
+
+        // Variáveis globais
+        let isLoginMode = true;
+        let tipoConteudoSelecionado = '';
+
+
+        // Inicialização quando o DOM carregar
+        document.addEventListener('DOMContentLoaded', function() {
+            configurarEventListeners();
+            verificarAuthState();
+        });
+
+
+        function configurarEventListeners() {
+            // Botões de autenticação
+            document.getElementById('login-btn').addEventListener('click', abrirModalLogin);
+            document.getElementById('cadastro-btn').addEventListener('click', abrirModalCadastro);
+            document.getElementById('logout-btn').addEventListener('click', fazerLogout);
+            document.getElementById('hero-cadastro-btn').addEventListener('click', abrirModalCadastro);
+
+
+            // Modal de autenticação
+            document.getElementById('auth-form').addEventListener('submit', processarAuth);
+            document.getElementById('switch-to-cadastro').addEventListener('click', alternarModoAuth);
+            document.querySelector('.fechar-modal').addEventListener('click', fecharModalAuth);
+
+
+            // Formulário de envio de conteúdo
+            document.getElementById('formulario-conteudo').addEventListener('submit', enviarConteudo);
+
+
+            // Preview de imagem
+            document.getElementById('arquivo-imagem').addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        document.getElementById('preview-imagem').src = e.target.result;
+                        document.getElementById('preview-imagem').style.display = 'block';
+                    }
+                    reader.readAsDataURL(file);
+                }
+            });
+
+
+            // Fechar modal ao clicar fora
+            window.addEventListener('click', function(event) {
+                const modal = document.getElementById('auth-modal');
+                if (event.target === modal) {
+              
